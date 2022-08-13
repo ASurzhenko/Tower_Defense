@@ -7,21 +7,11 @@ public class SaveLoadManager : MonoBehaviour
     public static SaveLoadManager Instance {get; private set;}
     LocalStorage localStorage;
     void Awake() {
-		if (Instance != null) {
-            localStorage = new LocalStorage();
-			PlayerData.SetDataContainer(localStorage.GetContainer());
-			Instance.SetupData();
-			Destroy(gameObject);
-			return;
-		}
 		Instance = this;
 	}
     void Start() {
-		if (Instance == this) {
-            localStorage = new LocalStorage();
-			SetupData();
-		}
-		DontDestroyOnLoad(gameObject);
+		localStorage = new LocalStorage();
+		SetupData();
 	}
     private void SetupData() {
         PlayerData.SetDataManager(Instance);
