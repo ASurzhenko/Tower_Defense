@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44f295062fa8cb45b5a28049f08264e, type: 3}
   m_Name: Enemy_SO_1
   m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 110824344958684017, guid: e1f2c9becd184874d964f5e5242659e1, type: 3}
   HealthAmount: 30
-  MovingSpeed: 10
+  MovingSpeed: 5
   Damage: 20

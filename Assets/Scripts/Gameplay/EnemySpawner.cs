@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
         print("Wave " + (currentWaveIndex + 1));
         EnemyFactory factory = GetFactory(wave_SO[currentWaveIndex]);
         GameObject enemy = GetEnemyFromPool(factory); 
-        enemy.GetComponent<Enemy>().Speed = factory.GetEnemy().GetEnemySpeed();
+        enemy.GetComponent<Enemy>().SetUp(factory.GetEnemy());
     }
     GameObject GetEnemyFromPool(EnemyFactory factory)
     {

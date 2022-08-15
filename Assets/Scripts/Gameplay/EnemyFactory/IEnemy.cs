@@ -4,7 +4,8 @@ using UnityEngine;
 
 public interface IEnemy
 {
-    float GetDamage();
     GameObject GetEnemyPrefab();
+    float GetDamage();
     float GetEnemySpeed();
+    float GetHealth();
 }

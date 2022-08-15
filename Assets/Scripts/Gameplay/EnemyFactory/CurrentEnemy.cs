@@ -13,21 +13,20 @@ public class CurrentEnemy : IEnemy
         Damage = wave.Enemies[0].Damage;
         Health = wave.Enemies[0].HealthAmount;
     }
-
     public float GetDamage()
     {
         return Damage;
     }
-
-    public Wave_SO GetWave() => wave;
-
     public GameObject GetEnemyPrefab()
     {
         return wave.Enemies[0].EnemyPrefab;
     }
-
     public float GetEnemySpeed()
     {
         return wave.Enemies[0].MovingSpeed;
+    }
+    public float GetHealth()
+    {
+        return wave.Enemies[0].HealthAmount;
     }
 }

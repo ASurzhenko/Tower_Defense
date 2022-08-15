@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e39d94e192dbbb4f8e4e12162d54720, type: 3}
+  m_Name: Tower_SO_Middle
+  m_EditorClassIdentifier: 
+  TowerPrefab: {fileID: 3798397601624213790, guid: b32b929bca3bf7b42864681dcd7ff727, type: 3}
+  TowerSprite: {fileID: 2370108833240539244, guid: 59fae1b403415f443bea88fbea11044a, type: 3}
+  BuildPrice: 70
+  Range: 2.3
+  ShootInterval: 1.5
+  Damage: 40

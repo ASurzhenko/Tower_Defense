@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99da54f4f9edca344b029ae278ffe27f, type: 3}
   m_Name: Wave_SO_1
   m_EditorClassIdentifier: 
-  Duration: 0
+  Duration: 60
   Enemies:
   - {fileID: 11400000, guid: 0ff58831a710c704d90c06e3caf3b1ec, type: 2}
