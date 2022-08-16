@@ -7,12 +7,18 @@ public class Enemy : MonoBehaviour
     public float Speed;
     public int Id;
     float Damage;
-    float Health;
+    public float Health{get; private set;}
     Transform targetTransform;
     int waypoinIndex;
+    Animator myAnimator;
+    bool isDead;
+    private void Awake() {
+        myAnimator = GetComponent<Animator>();
+    }
     private void OnEnable() {
         targetTransform = WayPoints.Instance.Way_Points[0];
         waypoinIndex = 0;
+        isDead = false;
     }
     public void SetUp(IEnemy enemyData)
     {
@@ -22,7 +28,8 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
-        if(Health <= 0)
+        if(isDead) return;
+        if(Health <= 0 && !isDead)
         {
             Die();
             return;
@@ -40,6 +47,7 @@ public class Enemy : MonoBehaviour
     {
         if(waypoinIndex >= WayPoints.Instance.Way_Points.Length - 1)
         {
+            MakeDamage();
             gameObject.SetActive(false);
             return;
         }
@@ -48,12 +56,21 @@ public class Enemy : MonoBehaviour
         targetTransform = WayPoints.Instance.Way_Points[waypoinIndex];
     }
 
+    void MakeDamage()
+    {
+        PData.PlayerHealth -= Damage;
+        if(PData.PlayerHealth <= 0)
+        {
+            UIManager.Instance.ShowGameOverPanel();
+        }
+    }
     public void TakeDamage(float damage)
     {
         Health -= damage;
     }
     void Die()
     {
-
+        isDead = true;
+        myAnimator.SetTrigger("death");
     }
 }

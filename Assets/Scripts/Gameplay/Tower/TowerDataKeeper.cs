@@ -7,6 +7,7 @@ public class TowerDataKeeper : MonoBehaviour
     public static TowerDataKeeper Instance;
     [SerializeField] Tower_SO[] Towers_SO;
     [SerializeField] GameObject Bullet;
+    public TowerPlace CurrentTowerPlace{get; set;}
     private void Awake() {
         Instance = this;
     }

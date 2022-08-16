@@ -5,15 +5,17 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Transform target;
+    float damage;
     float speed = 30f;
-    public void SetUp(Transform target)
+    public void SetUp(Transform target, float damage)
     {
         this.target = target;
+        this.damage = damage;
     }
     private void Update() {
         if(target == null)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             return;
         }
 
@@ -21,8 +23,7 @@ public class Bullet : MonoBehaviour
         float dist = Vector3.Distance(target.position, transform.position);
         if(dist <= 0.3f)
         {
-            //Hit
-            gameObject.SetActive(false);
+            Hit();
             return;
         }
 
@@ -31,6 +32,7 @@ public class Bullet : MonoBehaviour
 
     void Hit()
     {
-        
+        target.GetComponent<Enemy>().TakeDamage(damage);
+        gameObject.SetActive(false);
     } 
 }

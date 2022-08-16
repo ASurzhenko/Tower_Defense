@@ -18,6 +18,11 @@ public class Tower : MonoBehaviour
     }
     private void Update() {
         if(target == null) return;
+        if(IsTargetDead())
+        {
+            target = null;
+            return;
+        }
 
         Vector3 difference = target.position - transform.position;
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
@@ -30,6 +35,11 @@ public class Tower : MonoBehaviour
         }
         fireTimer -= Time.deltaTime;
     }
+    bool IsTargetDead()
+    {
+        if(target == null) return true;
+        return target.GetComponent<Enemy>().Health <= 0;
+    }
     public void SetUp(Tower_SO tower_SO)
     {
         this.tower_SO = tower_SO;
@@ -41,7 +51,7 @@ public class Tower : MonoBehaviour
     {
         GameObject bullet = GetBulletFromPool();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.SetUp(target);
+        bulletScript.SetUp(target, tower_SO.Damage);
     }
 
     GameObject GetBulletFromPool()
@@ -67,5 +77,9 @@ public class Tower : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other) {
         if(other.name.Contains("Enemy"))
             target = null;
+    }
+
+    private void OnMouseUpAsButton() {
+        print("Tower so: " + tower_SO.BuildPrice);
     }
 }

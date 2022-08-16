@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TowerPrefab: {fileID: 3798397601624213790, guid: b32b929bca3bf7b42864681dcd7ff727, type: 3}
   TowerSprite: {fileID: 1688124873139708044, guid: 59fae1b403415f443bea88fbea11044a, type: 3}
-  BuildPrice: 50
+  BuildPrice: 100
   Range: 2
   ShootInterval: 2
-  Damage: 30
+  Damage: 5
