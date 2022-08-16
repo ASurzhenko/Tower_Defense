@@ -16,9 +16,13 @@ public class Enemy : MonoBehaviour
         myAnimator = GetComponent<Animator>();
     }
     private void OnEnable() {
+        UIManager.OnGameOver += () => Destroy(gameObject);
         targetTransform = WayPoints.Instance.Way_Points[0];
         waypoinIndex = 0;
         isDead = false;
+    }
+    private void OnDisable() {
+        UIManager.OnGameOver -= () => Destroy(gameObject);
     }
     public void SetUp(IEnemy enemyData)
     {
@@ -73,4 +77,5 @@ public class Enemy : MonoBehaviour
         isDead = true;
         myAnimator.SetTrigger("death");
     }
+    void GameOver() => Destroy(gameObject);
 }

@@ -15,7 +15,12 @@ public class EnemySpawner : MonoBehaviour
     {
         InvokeRepeating("Spawn", 2, 2);
     }
-
+    private void OnEnable() {
+        UIManager.OnGameOver += () => CancelInvoke("Spawn");
+    }
+    private void OnDisable() {
+        UIManager.OnGameOver -= () => CancelInvoke("Spawn");
+    }
     void Update()
     {
         if (stopTimer) return;

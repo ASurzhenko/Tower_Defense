@@ -35,7 +35,6 @@ public class TowerPlace : MonoBehaviour
             CloseButton.SetActive(true);
         }
     }
-
     bool IsPopupOpened() => BuyPopup.activeInHierarchy;
     public void CreateTower(int towerIndex)
     {
@@ -45,5 +44,9 @@ public class TowerPlace : MonoBehaviour
         tower.GetComponentInChildren<Tower>().SetUp(tower_SO);
         PopUpAnimationManager.HidePanel(BuyPopup);
         CloseButton.SetActive(false);
+    }
+    public void ShowSellPanel()
+    {
+        
     }
 }

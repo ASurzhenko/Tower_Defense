@@ -10,8 +10,10 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     [SerializeField] private TextMeshProUGUI[] cashTexts;
     [SerializeField] Image HealthFillbar;
+    [SerializeField] GameObject GameOverPopup;
     float maxPlayerHP => PlayerDataKeeper.Instance.playerData_SO.MaxPlayerHP;
     float currentPlayerHP => PData.PlayerHealth;
+    public static Action OnGameOver;
     private void Awake() {
         Instance = this;
     }
@@ -53,6 +55,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowGameOverPanel()
     {
-        Debug.Log("Show Game Over Panel!");
+        PopUpAnimationManager.ShowPanel(GameOverPopup);
+        OnGameOver?.Invoke();
     }
 }
