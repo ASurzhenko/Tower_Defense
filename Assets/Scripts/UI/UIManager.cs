@@ -4,13 +4,16 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    [SerializeField] private TextMeshProUGUI[] cashTexts;
+    [SerializeField] TextMeshProUGUI[] cashTexts;
     [SerializeField] Image HealthFillbar;
     [SerializeField] GameObject GameOverPopup;
+    [SerializeField] GameObject WinPopup;
+    [SerializeField] TextMeshProUGUI WaveText;
     float maxPlayerHP => PlayerDataKeeper.Instance.playerData_SO.MaxPlayerHP;
     float currentPlayerHP => PData.PlayerHealth;
     public static Action OnGameOver;
@@ -19,15 +22,16 @@ public class UIManager : MonoBehaviour
     }
     private void Start() {
         PData.PlayerHealth = maxPlayerHP;
-        if(!PlayerData.GetBool(GameConstants.NotFirstLoad))
-        {
-            SetStartValues();
-        }
-        else
-        {
-            OnSoftCashChangeHandler(PData.SoftCash);
-            OnPlayerHealthChangeHandler(PData.PlayerHealth);
-        }
+        SetStartValues();
+        // if(!PlayerData.GetBool(GameConstants.NotFirstLoad))
+        // {
+        //     SetStartValues();
+        // }
+        // else
+        // {
+        //     OnSoftCashChangeHandler(PData.SoftCash);
+        //     OnPlayerHealthChangeHandler(PData.PlayerHealth);
+        // }
     }
     void SetStartValues()
     {
@@ -55,7 +59,28 @@ public class UIManager : MonoBehaviour
     }
     public void ShowGameOverPanel()
     {
+        if(AudioManager.Instance.isSfxOn())
+            AudioManager.Instance.PlaySound(SoundEnum.GameOverSound);
+
         PopUpAnimationManager.ShowPanel(GameOverPopup);
         OnGameOver?.Invoke();
     }
+    public void ShowWinPanel()
+    {
+        if(AudioManager.Instance.isSfxOn())
+            AudioManager.Instance.PlaySound(SoundEnum.WinSound);
+
+        PopUpAnimationManager.ShowPanel(WinPopup);
+    }
+
+    public void ShowWaveText(int wave, int maxWaves)
+    {
+        WaveText.text = $"Wave {wave}/{maxWaves}";
+        if(!WaveText.gameObject.activeInHierarchy)
+        {
+            WaveText.gameObject.SetActive(true);
+            WaveText.DOFade(1, 1);
+        }
+    }
+    public void RestartGame() => SceneLoadManager.Instance.LoadScene(SceneNames.LevelScene + 1);
 }

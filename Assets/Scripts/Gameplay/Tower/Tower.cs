@@ -12,14 +12,19 @@ public class Tower : MonoBehaviour
     float fireTimer;
     List<GameObject> bulletPool = new List<GameObject>();
     float rorateSpeed = 20f;
+    public List <Transform> targets = new List<Transform>();
     private void Awake() {
         myCollider = GetComponent<CircleCollider2D>();
         MySpriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void Update() {
+        if(target == null)
+            target = GetTarget();
         if(target == null) return;
+        
         if(IsTargetDead())
         {
+            targets.Remove(target);
             target = null;
             return;
         }
@@ -35,6 +40,11 @@ public class Tower : MonoBehaviour
         }
         fireTimer -= Time.deltaTime;
     }
+    Transform GetTarget()
+    {
+        if(targets.Count == 0) return null;
+        return targets[0];
+    }
     bool IsTargetDead()
     {
         if(target == null) return true;
@@ -49,6 +59,9 @@ public class Tower : MonoBehaviour
 
     void Shoot()
     {
+        if(AudioManager.Instance.isSfxOn())
+            AudioManager.Instance.PlaySound(SoundEnum.Shoot);
+            
         GameObject bullet = GetBulletFromPool();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.SetUp(target, tower_SO.Damage);
@@ -72,14 +85,19 @@ public class Tower : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.name.Contains("Enemy"))
-            target = other.transform;
+        {
+            targets.Add(other.transform);
+        }
     }
     private void OnTriggerExit2D(Collider2D other) {
         if(other.name.Contains("Enemy"))
+        {
+            targets.Remove(target);
             target = null;
+        }
     }
 
     private void OnMouseUpAsButton() {
-        print("Tower so: " + tower_SO.BuildPrice);
+        transform.parent.parent.GetComponent<TowerPlace>().ShowSellPanel(tower_SO);
     }
 }

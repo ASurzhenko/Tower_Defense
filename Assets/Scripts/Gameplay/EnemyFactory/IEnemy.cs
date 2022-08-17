@@ -8,4 +8,5 @@ public interface IEnemy
     float GetDamage();
     float GetEnemySpeed();
     float GetHealth();
+    float GetReward();
 }

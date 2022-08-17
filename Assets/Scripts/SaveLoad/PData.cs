@@ -39,10 +39,10 @@ public class PData
 			OnPlayerHealthChange?.Invoke(value);
 		}
 	}
-    public static int LastLocationIndex {
-		get => PlayerData.GetInt("LastLocationIndex");
+    public static int LastLevelIndex {
+		get => PlayerData.GetInt(GameConstants.LastLevelIndex);
 		set {
-			PlayerData.SetInt("LastLocationIndex", value);
+			PlayerData.SetInt(GameConstants.LastLevelIndex, value);
 		}
 	}
 }

@@ -8,10 +8,11 @@ public class Enemy : MonoBehaviour
     public int Id;
     float Damage;
     public float Health{get; private set;}
+    public float Reward{get; private set;}
     Transform targetTransform;
     int waypoinIndex;
     Animator myAnimator;
-    bool isDead;
+    public bool isDead;
     private void Awake() {
         myAnimator = GetComponent<Animator>();
     }
@@ -26,9 +27,10 @@ public class Enemy : MonoBehaviour
     }
     public void SetUp(IEnemy enemyData)
     {
-        this.Speed = enemyData.GetEnemySpeed();
-        this.Damage = enemyData.GetDamage();
-        this.Health = enemyData.GetHealth();
+        Speed = enemyData.GetEnemySpeed();
+        Damage = enemyData.GetDamage();
+        Health = enemyData.GetHealth();
+        Reward = enemyData.GetReward();
     }
     private void Update()
     {
@@ -57,7 +59,15 @@ public class Enemy : MonoBehaviour
         }
 
         waypoinIndex++;
-        targetTransform = WayPoints.Instance.Way_Points[waypoinIndex];
+        targetTransform = GetNextWayPoint();
+    }
+    Transform GetNextWayPoint()
+    {
+        return WayPoints.Instance.Way_Points[waypoinIndex];
+    }
+    public Transform GetLastWayPoint()
+    {
+        return WayPoints.Instance.Way_Points[waypoinIndex];
     }
 
     void MakeDamage()
@@ -74,8 +84,14 @@ public class Enemy : MonoBehaviour
     }
     void Die()
     {
+        if(AudioManager.Instance.isSfxOn())
+            AudioManager.Instance.PlaySound(SoundEnum.EnemyDeath);
+
         isDead = true;
         myAnimator.SetTrigger("death");
+
+        PData.SoftCash += Reward;
+
+        VFXEffector.Instance.CoinEffect(transform.position);
     }
-    void GameOver() => Destroy(gameObject);
 }

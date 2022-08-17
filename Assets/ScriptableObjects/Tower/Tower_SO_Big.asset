@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e39d94e192dbbb4f8e4e12162d54720, type: 3}
-  m_Name: Tower_SO_Small
+  m_Name: Tower_SO_Big
   m_EditorClassIdentifier: 
   TowerPrefab: {fileID: 3798397601624213790, guid: b32b929bca3bf7b42864681dcd7ff727, type: 3}
-  TowerSprite: {fileID: 1688124873139708044, guid: 59fae1b403415f443bea88fbea11044a, type: 3}
-  BuildPrice: 100
-  Range: 2
-  ShootInterval: 2
-  Damage: 5
+  TowerSprite: {fileID: 6116753710112810013, guid: 59fae1b403415f443bea88fbea11044a, type: 3}
+  BuildPrice: 400
+  Range: 4
+  ShootInterval: 1.2
+  Damage: 10

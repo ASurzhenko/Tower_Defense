@@ -10,9 +10,11 @@ public class EnemySpawner : MonoBehaviour
     List<GameObject> enemies = new List<GameObject>(); 
     int currentWaveIndex;
     float waveTimer;
-    bool stopTimer;
-    void Start()
+    bool stopTimer = true;
+    GameObject lastEnemy;
+    public void StartSpawn()
     {
+        stopTimer = false;
         InvokeRepeating("Spawn", 2, 2);
     }
     private void OnEnable() {
@@ -37,16 +39,27 @@ public class EnemySpawner : MonoBehaviour
             {
                 stopTimer = true;
                 CancelInvoke("Spawn");
+                StartCoroutine(WaitForTheLastEnemy());
             }
         }
     }
-
+    IEnumerator WaitForTheLastEnemy()
+    {
+        if(lastEnemy != null)
+        {
+            yield return new WaitUntil(() => !lastEnemy.activeInHierarchy);
+            yield return new WaitForSeconds(0.5f);
+            if(PData.PlayerHealth > 0)
+                UIManager.Instance.ShowWinPanel();
+        }
+    }
     void Spawn()
     {
-        print("Wave " + (currentWaveIndex + 1));
+        UIManager.Instance.ShowWaveText(currentWaveIndex + 1, wave_SO.Length);
         EnemyFactory factory = GetFactory(wave_SO[currentWaveIndex]);
         GameObject enemy = GetEnemyFromPool(factory); 
         enemy.GetComponent<Enemy>().SetUp(factory.GetEnemy());
+        lastEnemy = enemy;
     }
     GameObject GetEnemyFromPool(EnemyFactory factory)
     {

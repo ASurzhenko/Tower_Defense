@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99da54f4f9edca344b029ae278ffe27f, type: 3}
-  m_Name: Wave_SO_2
+  m_Name: Wave_SO_3
   m_EditorClassIdentifier: 
   Duration: 40
   Enemies:
-  - {fileID: 11400000, guid: e9734fc3520ba2440823c295e0e73fc3, type: 2}
+  - {fileID: 11400000, guid: d557aeaf63be6ea41bfbe191a2b0bea5, type: 2}

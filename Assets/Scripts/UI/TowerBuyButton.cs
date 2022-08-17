@@ -12,9 +12,11 @@ public class TowerBuyButton : MonoBehaviour
     Tower_SO myTower_SO;
     float softCash => PData.SoftCash;
     TowerPlace currentTowerPlace => TowerDataKeeper.Instance.CurrentTowerPlace;
+    bool blockClick;
     private void OnEnable() {
 		PData.OnPlayerSoftCashChange += OnSoftCashChangeHandler;
         OnSoftCashChangeHandler(softCash);
+        blockClick = false;
 	}
 	private void OnDisable() {
 		PData.OnPlayerSoftCashChange -= OnSoftCashChangeHandler;
@@ -30,9 +32,12 @@ public class TowerBuyButton : MonoBehaviour
     bool IsTowerLocked(float price) => softCash < price;
     public void CreateTower(int towerIndex)
     {
-        if(IsTowerLocked(myTower_SO.BuildPrice)) return;
+        if(IsTowerLocked(myTower_SO.BuildPrice) || blockClick) return;
+        blockClick = true;
         PData.SoftCash -= myTower_SO.BuildPrice;
         currentTowerPlace.CreateTower(towerIndex);
+        if(AudioManager.Instance.isSfxOn())
+            AudioManager.Instance.PlaySound(SoundEnum.CoinSound);
     }
     void OnSoftCashChangeHandler(float softCash)
     {
